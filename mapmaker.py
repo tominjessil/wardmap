@@ -1,4 +1,6 @@
 import geopandas as gpd
+import folium
+from folium import Element
 
 # Load your GeoJSON
 # gdf = gpd.read_file("lds-nz-suburbs-and-localities-SHP/nz-suburbs-and-localities.shp")
@@ -68,3 +70,53 @@ gdf["stroke-opacity"] = 1
 
 # Export to GeoJSON
 gdf.to_file("suburbs_colored.geojson", driver="GeoJSON")
+
+# Create base map centered on NZ (or adjust to your data)
+m = folium.Map(location=[-41.2, 174.8], zoom_start=15, tiles="CartoDB Positron", max_bounds=True)
+
+# Add your colored GeoJSON to the map
+folium.GeoJson(
+    "suburbs_colored.geojson",
+    name="Wards",
+    style_function=lambda feature: {
+        'fillColor': feature['properties'].get('fill', 'gray'),
+        'color': feature['properties'].get('stroke', '#000000'),
+        'weight': feature['properties'].get('stroke-width', 1),
+        'fillOpacity': feature['properties'].get('fill-opacity', 0.6),
+        'opacity': feature['properties'].get('stroke-opacity', 1),
+    },
+    tooltip=folium.GeoJsonTooltip(fields=["name", "ward"], aliases=["Suburb", "Ward"])
+).add_to(m)
+
+m.fit_bounds([[-41.5, 174.5], [-39.5, 176.5]])
+
+# Legend HTML
+legend_html = """
+<div style="
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 160px;
+    background-color: white;
+    border:2px solid grey;
+    z-index:9999;
+    font-size:14px;
+    padding: 10px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+    ">
+    <b>Ward Legend</b><br>
+    <i style="background:#e6194b; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Holy Family<br>
+    <i style="background:#4363d8; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Thomas<br>
+    <i style="background:#73cd85; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Francis Xavier<br>
+    <i style="background:#f58231; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Joseph’s<br>
+    <i style="background:#cec93e; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Kapiti<br>
+    <i style="background:#911eb4; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Chavara<br>
+    <i style="background:#b27b53; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St Alphonsa<br>
+</div>
+"""
+
+legend = Element(legend_html)
+m.get_root().html.add_child(legend)
+
+# Save the map
+m.save("index.html")
