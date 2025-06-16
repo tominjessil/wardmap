@@ -9,7 +9,7 @@ gdf = gpd.read_file("lds-nz-suburbs-and-localities-SHP/nz-suburbs-and-localities
 gdf = gdf.to_crs(epsg=4326)
 
 # Create a base map centered on Wellington
-m = folium.Map(location=[-41.2865, 174.7762], zoom_start=12, tiles="Mapbox Bright", attr="Map data ©")
+m = folium.Map(location=[-41.2865, 174.7762], zoom_start=12, tiles="Cartodb Positron", attr="Map data ©")
 
 
 
@@ -150,5 +150,6 @@ for _, row in gdf.iterrows():
 
 # Save or display
 m.save("index.html")
+gdf.to_file("corrected_suburbs.geojson", driver="GeoJSON")
 m  # Display inline if using Jupyter
 
