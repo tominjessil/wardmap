@@ -150,6 +150,6 @@ for _, row in gdf.iterrows():
 
 # Save or display
 m.save("index.html")
-gdf.to_file("corrected_suburbs.geojson", driver="GeoJSON")
+gdf.to_file("suburbs.geojson", driver="GeoJSON")
 m  # Display inline if using Jupyter
 
