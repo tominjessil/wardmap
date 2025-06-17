@@ -1,4 +1,3 @@
-#FIXME Rebuild the map with complete ward and suburb data
 #TODO Update the boundaries of suburbs using the SIMPLE map as if needed
 
 import geopandas as gpd
@@ -6,33 +5,37 @@ import folium
 from folium import Element
 import leafmap.foliumap as leafmap
 
+#TODO Remove Te Onepoto Bay
+# TODO Add Tokomaru, Opiki, Moutoa, Waitārere as the range 
+
 gsdf = gpd.read_file("nz-suburbs.geojson") # Less detailed original
 # gsdf = gpd.read_file("detailed_boundaries_with_names.geojson")
 
 ward_suburbs = {
     "Holy Family": ["Avalon", "Belmont", "Boulcott", "Epuni", "Harbour View", "Kelson", "Tirohanga"],
-    "St.Thomas": ["Petone", "Eastbourne", "Naenae", "Korokoro", "Waiwhetū", "Woburn", "Waterloo",
+    "St. Thomas": ["Petone", "Eastbourne", "Naenae", "Korokoro", "Waiwhetū", "Woburn", "Waterloo",
                    "Hutt Central", "Wainuiomata", "Seaview", "Alicetown", "Maungaraki", "Normandale", "Fairfield", "Gracefield",
-                   "Lowry Bay", "York Bay", "Māhina Bay", "Sunshine Bay", "Days Bay", "Melling"],
-    "St.Francis Xavier": ["Stokes Valley", "Taitā", "Manor Park", "Moera"],
-    "St.Joseph’s": ["Silverstream", "Pinehaven", "Blue Mountains", "Heretaunga", "Trentham",
+                   "Lowry Bay", "York Bay", "Māhina Bay", "Sunshine Bay", "Days Bay", "Melling","Sorrento Bay","Moera", "Point Howard",
+                   "Remutaka Forest Park", "Pencarrow Head", "Wainuiomata Coast"],
+    "St. Francis Xavier": ["Stokes Valley", "Taitā", "Manor Park"],
+    "St. Joseph’s": ["Silverstream", "Pinehaven", "Blue Mountains", "Heretaunga", "Trentham",
                      "Riverstone Terraces", "Haywards", "Wallaceville", "Elderslea", "Ebdentown",
                      "Whit  emans Valley", "Kingsley Heights", "Clouston Park", "Tōtara Park",
                      "Maoribank", "Brown Owl", "Mangaroa", "Timberlea", "Birchville", "Te Mārua",
                      "Kaitoke", "Akatarawa", "Whitemans Valley", "Upper Hutt Central", "Maidstone",
-                     "Maymorn", ],
+                     "Maymorn","Moonshine Valley", "Akatarawa Valley","Craigs Flat", "Remutaka Hill" ],
     "Our Lady of Kapiti": ["Raumati Beach", "Raumati South", "Maungakōtukutuku", "Paraparaumu",
                "Paraparaumu Beach", "Otaihanga", "Waikanae", "Waikanae Beach", "Paekākāriki",
                "Peka Peka", "Reikorangi", "Nikau Valley", "Te Horo", "Te Horo Beach", "Hautere",
                 "Tararua Forest Park", "Ōtaki Beach", "Ōtaki", "Waikawa Beach", "Manakau", "Kapiti Island"
                 ,],
-    "St.Chavara": ["Miramar", "Kilbirnie", "Island Bay", "Berhampore", "Newtown", "Brooklyn",
+    "St. Chavara": ["Miramar", "Kilbirnie", "Island Bay", "Berhampore", "Newtown", "Brooklyn",
                     "Aro Valley", "Mount Cook", "Kelburn", "Thorndon", "Hataitai", "Ōwhiro Bay"
                     ,"Pipitea", "Te Aro", "Wellington Central","Mount Victoria", "Oriental Bay",
                     "Roseneath", "Vogeltown", "Mornington", "Kingston", "Highbury", "Melrose",
                     "Lyall Bay", "Houghton Bay", "Southgate", "Rongotai", "Moa Point", "Streathmore Park",
                     "Breaker Bay", "Seatoun", "Karaka Bays", "Maupuia", "Strathmore Park"],
-    "St.Alphonsa": ["Tawa", "Churton Park", "Glenside", "Grenada North", "Grenada Village",
+    "St. Alphonsa": ["Tawa", "Churton Park", "Glenside", "Grenada North", "Grenada Village",
                     "Horokiwi", "Johnsonville", "Newlands", "Ohariu", "Paparangi", "Takapu Valley",
                     "Woodridge", "Broadmeadows", "Crofton Downs", "Kaiwharawhara", "Karori",
                     "Khandallah", "Mākara", "Mākara Beach", "Ngaio", "Ngauranga", "Northland",
@@ -40,17 +43,16 @@ ward_suburbs = {
                     "Kenepuru", "Mana Island", "Porirua City Centre", "Rānui", "Takapūwāhia",
                     "Tītahi Bay", "Waitangirua", "Camborne", "Hongoeka", "Judgeford", "Pukerua Bay",
                     "Paekākāriki Hill", "Papakōwhai", "Paremata", "Pāuatahanui", "Plimmerton", "Whitby",
-                    "Wadestown"]
-}
+                    "Wadestown", "Colonial Knob"]}
 
 ward_colours = {
     "Holy Family": "#e6194b",     
-    "St.Thomas": "#4363d8",      
-    "St.Francis Xavier": "#73cd85",  
-    "St.Joseph’s": "#f58231",    
+    "St. Thomas": "#4363d8",      
+    "St. Francis Xavier": "#73cd85",  
+    "St. Joseph’s": "#f58231",    
     "Our Lady of Kapiti": "#cec93e",         
-    "St.Chavara": "#911eb4",     
-    "St.Alphonsa": "#b27b53"      
+    "St. Chavara": "#911eb4",     
+    "St. Alphonsa": "#b27b53"
 }
 
 def get_ward_colour(ward):
@@ -129,12 +131,13 @@ legend_html = '''
     ">
     <b>Ward Legend</b><br>
     <i style="background:#e6194b; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Holy Family<br>
-    <i style="background:#4363d8; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St.Thomas<br>
-    <i style="background:#73cd85; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St.Francis Xavier<br>
-    <i style="background:#f58231; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St.Joseph’s<br>
+    <i style="background:#4363d8; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Thomas<br>
+    <i style="background:#73cd85; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Francis Xavier<br>
+    <i style="background:#f58231; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Joseph’s<br>
     <i style="background:#cec93e; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Our Lady of Kapiti<br>
-    <i style="background:#911eb4; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St.Chavara<br>
-    <i style="background:#b27b53; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St.Alphonsa<br>
+    <i style="background:#911eb4; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Chavara<br>
+    <i style="background:#b27b53; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Alphonsa<br>
+    <i style="background:#ffffff; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; border: 1px solid #000000"></i>Not a ward<br>
 </div>
 ''' 
 
