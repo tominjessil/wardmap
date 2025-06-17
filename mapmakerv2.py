@@ -1,11 +1,8 @@
-#TODO Update the boundaries of suburbs using the SIMPLE map as if needed
-
 import geopandas as gpd
 import folium
 from folium import Element
 import leafmap.foliumap as leafmap
 
-#TODO Remove Te Onepoto Bay
 # TODO Add Tokomaru, Opiki, Moutoa, Waitārere as the range 
 
 gsdf = gpd.read_file("nz-suburbs.geojson") # Less detailed original
@@ -121,7 +118,6 @@ legend_html = '''
     position: fixed;
     bottom: 30px;
     left: 30px;
-    width: 200px;
     background-color: white;
     border:2px solid grey;
     z-index:9999;
@@ -137,7 +133,7 @@ legend_html = '''
     <i style="background:#cec93e; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Our Lady of Kapiti<br>
     <i style="background:#911eb4; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Chavara<br>
     <i style="background:#b27b53; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Alphonsa<br>
-    <i style="background:#ffffff; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; border: 1px solid #000000"></i>Not a ward<br>
+    <i style="background:#ffffff; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; border: 1px solid #000000"></i>Not part of our parish<br>
 </div>
 ''' 
 
