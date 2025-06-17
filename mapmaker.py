@@ -39,13 +39,13 @@ ward_groups = {
 
 # Color for each ward
 group_colors = {
-    "Holy Family": "#e6194b",     # red
-    "St. Thomas": "#4363d8",      # green
-    "St. Francis Xavier": "#73cd85",  # yellow
-    "St. Joseph’s": "#f58231",    # blue
-    "Kapiti": "#cec93e",          # orange
-    "St. Chavara": "#911eb4",     # purple
-    "St Alphonsa": "#b27b53"      # cyan
+    "Holy Family": "#e6194b",     
+    "St. Thomas": "#4363d8",      
+    "St. Francis Xavier": "#73cd85",  
+    "St. Joseph’s": "#f58231",    
+    "Kapiti": "#cec93e",         
+    "St. Chavara": "#911eb4",     
+    "St Alphonsa": "#b27b53"      
 }
 
 # Helper: find ward
