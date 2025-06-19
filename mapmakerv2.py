@@ -71,7 +71,7 @@ gsdf["stroke-width"] = 1
 gsdf["stroke-opacity"] = 1
 gsdf.to_file("suburbs_coloured.geojson", driver="GeoJSON") 
 
-f_map = folium.Map(location=[-41.2, 174.8], zoom_start=10, tiles="Cartodb Positron")
+f_map = folium.Map(location=[-41.0618127, 175.0551349], zoom_start=10, tiles="Cartodb Positron")
 
 popup = folium.GeoJsonPopup(
     fields=["name", "ward"],
