@@ -3,10 +3,8 @@ import folium
 from folium import Element
 import leafmap.foliumap as leafmap
 
-# TODO Add Tokomaru, Opiki, Moutoa, Waitārere as the range 
-
-gsdf = gpd.read_file("nz-suburbs.geojson") # Less detailed original
-# gsdf = gpd.read_file("detailed_boundaries_with_names.geojson")
+# gsdf = gpd.read_file("nz-suburbs.geojson") # Current version
+gsdf = gpd.read_file("nz-suburbs-v2.geojson") # Previous
 
 ward_suburbs = {
     "Holy Family": ["Avalon", "Belmont", "Boulcott", "Epuni", "Harbour View", "Kelson", "Tirohanga"],
@@ -23,9 +21,7 @@ ward_suburbs = {
                      "Maymorn","Moonshine Valley", "Akatarawa Valley","Craigs Flat", "Remutaka Hill" ],
     "Our Lady of Kapiti": ["Raumati Beach", "Raumati South", "Maungakōtukutuku", "Paraparaumu",
                "Paraparaumu Beach", "Otaihanga", "Waikanae", "Waikanae Beach", "Paekākāriki",
-               "Peka Peka", "Reikorangi", "Nikau Valley", "Te Horo", "Te Horo Beach", "Hautere",
-                "Tararua Forest Park", "Ōtaki Beach", "Ōtaki", "Waikawa Beach", "Manakau", "Kapiti Island"
-                ,],
+               "Peka Peka", "Reikorangi", "Nikau Valley"],
     "St. Chavara": ["Miramar", "Kilbirnie", "Island Bay", "Berhampore", "Newtown", "Brooklyn",
                     "Aro Valley", "Mount Cook", "Kelburn", "Thorndon", "Hataitai", "Ōwhiro Bay"
                     ,"Pipitea", "Te Aro", "Wellington Central","Mount Victoria", "Oriental Bay",
