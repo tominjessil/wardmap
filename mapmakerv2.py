@@ -3,8 +3,7 @@ import folium
 from folium import Element
 import leafmap.foliumap as leafmap
 
-# gsdf = gpd.read_file("nz-suburbs.geojson") # Current version
-gsdf = gpd.read_file("nz-suburbs-v2.geojson") # Previous
+gsdf = gpd.read_file("nz-suburbs-v4.geojson") 
 
 ward_suburbs = {
     "Holy Family": ["Avalon", "Belmont", "Boulcott", "Epuni", "Harbour View", "Kelson", "Tirohanga"],
@@ -15,13 +14,13 @@ ward_suburbs = {
     "St. Francis Xavier": ["Stokes Valley", "Taitā", "Manor Park"],
     "St. Joseph’s": ["Silverstream", "Pinehaven", "Blue Mountains", "Heretaunga", "Trentham",
                      "Riverstone Terraces", "Haywards", "Wallaceville", "Elderslea", "Ebdentown",
-                     "Whit  emans Valley", "Kingsley Heights", "Clouston Park", "Tōtara Park",
+                     "Whitemans Valley", "Kingsley Heights", "Clouston Park", "Tōtara Park",
                      "Maoribank", "Brown Owl", "Mangaroa", "Timberlea", "Birchville", "Te Mārua",
                      "Kaitoke", "Akatarawa", "Whitemans Valley", "Upper Hutt Central", "Maidstone",
                      "Maymorn","Moonshine Valley", "Akatarawa Valley","Craigs Flat", "Remutaka Hill" ],
     "Our Lady of Kapiti": ["Raumati Beach", "Raumati South", "Maungakōtukutuku", "Paraparaumu",
                "Paraparaumu Beach", "Otaihanga", "Waikanae", "Waikanae Beach", "Paekākāriki",
-               "Peka Peka", "Reikorangi", "Nikau Valley"],
+               "Peka Peka", "Reikorangi", "Nikau Valley", "Ōtaki", "Ōtaki Beach", "Te Horo", "Te Horo Beach"],
     "St. Chavara": ["Miramar", "Kilbirnie", "Island Bay", "Berhampore", "Newtown", "Brooklyn",
                     "Aro Valley", "Mount Cook", "Kelburn", "Thorndon", "Hataitai", "Ōwhiro Bay"
                     ,"Pipitea", "Te Aro", "Wellington Central","Mount Victoria", "Oriental Bay",
@@ -50,7 +49,7 @@ ward_colours = {
 
 def get_ward_colour(ward):
     if ward_colours.get(ward) == None:
-        return "rgba(255, 255, 255, 1)"
+        return "rgba(255, 255, 255, 0)"
     return ward_colours[ward]
 
 def get_ward_name(suburb):
@@ -62,7 +61,6 @@ def get_ward_name(suburb):
 gsdf["ward"] = gsdf["name"].apply(get_ward_name)
 gsdf["fill"] = gsdf["ward"].apply(get_ward_colour)
 gsdf["fill-opacity"] = 0.45
-gsdf["stroke"] = "#555555"
 gsdf["stroke-width"] = 1
 gsdf["stroke-opacity"] = 1
 gsdf.to_file("suburbs_coloured.geojson", driver="GeoJSON") 
@@ -96,9 +94,9 @@ folium.GeoJson("suburbs_coloured.geojson",
                 name = "St Mary's Syro Malabar Wards",
                 style_function=lambda feature: {
                     "fillColor": feature["properties"]["fill"],
-                    "color": "black",
-                    "weight": 1,
-                    "fillOpacity": 0.4,
+                    "color": "black" if feature["properties"]["ward"] else "transparent",  
+                    "weight": 1,  
+                    "fillOpacity": 0.45,
                     "opacity": 1
                 },
                 tooltip=tooltip,
@@ -129,7 +127,6 @@ legend_html = '''
     <i style="background:#fff823; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Our Lady of Kapiti<br>
     <i style="background:#911eb4; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Chavara<br>
     <i style="background:#b27b53; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Alphonsa<br>
-    <i style="background:#ffffff; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; border: 1px solid #000000"></i>Not part of our parish<br>
 </div>
 ''' 
 
