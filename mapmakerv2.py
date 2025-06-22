@@ -139,6 +139,7 @@ legend_html = '''
     <i style="background:#fff823; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Our Lady of Kapiti<br>
     <i style="background:#911eb4; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Chavara<br>
     <i style="background:#b27b53; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Alphonsa<br>
+    <i style="background:#ffffff; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; border: 1px solid black;"></i> Not part of parish<br>
 </div>
 ''' 
 
