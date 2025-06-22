@@ -2,8 +2,10 @@ import geopandas as gpd
 import folium
 from folium import Element
 import leafmap.foliumap as leafmap
+import pandas as pd
 
 gsdf = gpd.read_file("nz-suburbs-v4.geojson") 
+northern_edge = gpd.read_file("northern-edge.geojson")
 
 ward_suburbs = {
     "Holy Family": ["Avalon", "Belmont", "Boulcott", "Epuni", "Harbour View", "Kelson", "Tirohanga"],
@@ -11,9 +13,9 @@ ward_suburbs = {
                    "Hutt Central", "Wainuiomata", "Seaview", "Alicetown", "Maungaraki", "Normandale", "Fairfield", "Gracefield",
                    "Lowry Bay", "York Bay", "Māhina Bay", "Sunshine Bay", "Days Bay", "Melling","Sorrento Bay","Moera", "Point Howard",
                    "Remutaka Forest Park", "Pencarrow Head", "Wainuiomata Coast"],
-    "St. Francis Xavier": ["Stokes Valley", "Taitā", "Manor Park"],
+    "St. Francis Xavier": ["Haywards","Stokes Valley", "Taitā", "Manor Park"],
     "St. Joseph’s": ["Silverstream", "Pinehaven", "Blue Mountains", "Heretaunga", "Trentham",
-                     "Riverstone Terraces", "Haywards", "Wallaceville", "Elderslea", "Ebdentown",
+                     "Riverstone Terraces", "Wallaceville", "Elderslea", "Ebdentown",
                      "Whitemans Valley", "Kingsley Heights", "Clouston Park", "Tōtara Park",
                      "Maoribank", "Brown Owl", "Mangaroa", "Timberlea", "Birchville", "Te Mārua",
                      "Kaitoke", "Akatarawa", "Whitemans Valley", "Upper Hutt Central", "Maidstone",
@@ -49,7 +51,7 @@ ward_colours = {
 
 def get_ward_colour(ward):
     if ward_colours.get(ward) == None:
-        return "rgba(255, 255, 255, 0)"
+        return "rgba(255,255,255, 0)"
     return ward_colours[ward]
 
 def get_ward_name(suburb):
@@ -72,7 +74,7 @@ popup = folium.GeoJsonPopup(
     aliases=["Suburb", "Ward"],
     localize=True,
     labels=True,
-    style="background-color: rgba(0,0,0,0);",
+    style="background-color: rgba(245,245,245,0.1);",
 )
 
 tooltip = folium.GeoJsonTooltip(
@@ -94,7 +96,7 @@ folium.GeoJson("suburbs_coloured.geojson",
                 name = "St Mary's Syro Malabar Wards",
                 style_function=lambda feature: {
                     "fillColor": feature["properties"]["fill"],
-                    "color": "black" if feature["properties"]["ward"] else "transparent",  
+                    "color": "black",   
                     "weight": 1,  
                     "fillOpacity": 0.45,
                     "opacity": 1
@@ -102,6 +104,16 @@ folium.GeoJson("suburbs_coloured.geojson",
                 tooltip=tooltip,
                 popup=popup,
             ).add_to(f_map)
+
+folium.GeoJson(
+    northern_edge,
+    name="Northern Edge",
+    style_function=lambda feature: {
+        'color': 'black',
+        'weight': 3,
+        'opacity': 1
+    }
+).add_to(f_map)
 
 folium.TileLayer("OpenStreetMap", name="Detailed View", overlay=False, control=True, show=True).add_to(f_map)
 folium.TileLayer("Cartodb Positron", overlay=False, control=True, show=False).add_to(f_map)

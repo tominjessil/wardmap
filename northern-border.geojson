@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "northern-border",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { }, "geometry": { "type": "LineString", "coordinates": [ [ 176.21125348337182, -40.659210282847852 ], [ 176.211556650678062, -40.659450782662979 ] ] } }
+]
+}
