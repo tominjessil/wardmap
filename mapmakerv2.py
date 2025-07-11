@@ -4,7 +4,7 @@ from folium import Element
 import leafmap.foliumap as leafmap
 import pandas as pd
 
-gsdf = gpd.read_file("nz-suburbs-v3.geojson") 
+gsdf = gpd.read_file("nz-suburbs-v3-new.geojson") 
 northern_edge = gpd.read_file("northern-edge.geojson")
 
 ward_suburbs = {
