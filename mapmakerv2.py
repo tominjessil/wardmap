@@ -114,7 +114,7 @@ folium.GeoJson(
     northern_edge,
     name="Northern Edge",show=True,
     style_function=lambda feature: {
-        'color': "black",
+        'color': "blue",
         'weight': 2,
         'opacity': 1
     }
