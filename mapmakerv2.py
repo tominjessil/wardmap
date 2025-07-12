@@ -65,6 +65,11 @@ gsdf["fill"] = gsdf["ward"].apply(get_ward_colour)
 gsdf["fill-opacity"] = 0.45
 gsdf["stroke-width"] = 1
 gsdf["stroke-opacity"] = 1
+
+# Hide suburbs not part of a ward
+# gsdf = gsdf[gsdf["ward"] != ""]
+
+
 gsdf.to_file("suburbs_coloured.geojson", driver="GeoJSON") 
 
 f_map = folium.Map(location=[-41.0618127, 175.0551349], zoom_start=10, tiles="Cartodb Positron")
@@ -160,6 +165,7 @@ attribution_html = '''
 </div>
 '''
 f_map.get_root().html.add_child(Element(attribution_html))
+f_map.get_root().html.add_child(Element(legend_html))
 
 
 
