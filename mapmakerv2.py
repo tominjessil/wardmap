@@ -5,7 +5,7 @@ import leafmap.foliumap as leafmap
 import pandas as pd
 
 gsdf = gpd.read_file("nz-suburbs-v4.geojson") 
-northern_edge = gpd.read_file("northern-edge.geojson")
+northern_edge = gpd.read_file("northern-border.geojson")
 
 ward_suburbs = {
     "Holy Family": ["Avalon", "Belmont", "Boulcott", "Epuni", "Harbour View", "Kelson", "Tirohanga"],
@@ -112,10 +112,10 @@ folium.GeoJson("suburbs_coloured.geojson",
 
 folium.GeoJson(
     northern_edge,
-    name="Northern Edge",show=False,
+    name="Northern Edge",show=True,
     style_function=lambda feature: {
-        'color': 'black',
-        'weight': 3,
+        'color': "black",
+        'weight': 2,
         'opacity': 1
     }
 ).add_to(f_map)
