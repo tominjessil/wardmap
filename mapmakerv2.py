@@ -40,13 +40,13 @@ ward_suburbs = {
                     "Wadestown", "Colonial Knob"]}
 
 ward_colours = {
-    "Holy Family": "#e6194b",     
+    "Holy Family": "#fff823",     
     "St. Thomas": "#4363d8",      
     "St. Francis Xavier": "#73cd85",  
     "St. Joseph’s": "#f58231",    
-    "Our Lady of Kapiti": "#fff823",         
+    "Our Lady of Kapiti": "#96b5fe",         
     "St. Chavara": "#911eb4",     
-    "St. Alphonsa": "#b27b53"
+    "St. Alphonsa": "#e6194b"
 }
 
 def get_ward_colour(ward):
@@ -62,7 +62,7 @@ def get_ward_name(suburb):
    
 gsdf["ward"] = gsdf["name"].apply(get_ward_name)
 gsdf["fill"] = gsdf["ward"].apply(get_ward_colour)
-gsdf["fill-opacity"] = 0.45
+gsdf["fill-opacity"] = 1
 gsdf["stroke-width"] = 1
 gsdf["stroke-opacity"] = 1
 
@@ -103,7 +103,7 @@ folium.GeoJson("suburbs_coloured.geojson",
                     "fillColor": feature["properties"]["fill"],
                     "color": "black",   
                     "weight": 1,  
-                    "fillOpacity": 0.45,
+                    "fillOpacity": 0.55,
                     "opacity": 1
                 },
                 tooltip=tooltip,
@@ -137,13 +137,13 @@ legend_html = '''
     box-shadow: 3px 3px 6px rgba(0,0,0,0.3);
     ">
     <b>Ward Legend</b><br>
-    <i style="background:#e6194b; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Holy Family<br>
+    <i style="background:#fff823; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Holy Family<br>
     <i style="background:#4363d8; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Thomas<br>
     <i style="background:#73cd85; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Francis Xavier<br>
     <i style="background:#f58231; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Joseph’s<br>
-    <i style="background:#fff823; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Our Lady of Kapiti<br>
+    <i style="background:#96b5fe; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> Our Lady of Kapiti<br>
     <i style="background:#911eb4; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Chavara<br>
-    <i style="background:#b27b53; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Alphonsa<br>
+    <i style="background:#e6194b; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;"></i> St. Alphonsa<br>
     <i style="background:#ffffff; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; border: 1px solid black;"></i> Not part of parish<br>
 </div>
 ''' 
