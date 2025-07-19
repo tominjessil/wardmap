@@ -58,7 +58,7 @@ def get_ward_name(suburb):
     for ward, suburbs in ward_suburbs.items():
         if suburb in suburbs:
             return ward
-    return ""
+    return "Not yet assigned or outside the parish"
    
 gsdf["ward"] = gsdf["name"].apply(get_ward_name)
 gsdf["fill"] = gsdf["ward"].apply(get_ward_colour)
