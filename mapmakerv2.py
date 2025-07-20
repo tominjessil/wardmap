@@ -170,4 +170,5 @@ f_map.get_root().html.add_child(Element(legend_html))
 
 
 f_map.save('wardmap.html')
+f_map.save('index.html')
 
