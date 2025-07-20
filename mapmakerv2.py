@@ -151,8 +151,8 @@ legend_html = '''
 attribution_html = '''
 <div style="
     position: fixed;
-    bottom: 10px;
-    right: 10px;
+    bottom: 15px;
+    right: 5px;
     z-index: 9999;
     background-color: rgba(255, 255, 255, 0.9);
     padding: 6px 10px;
@@ -161,7 +161,7 @@ attribution_html = '''
     box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
     ">
     Contains data sourced from the <a href="https://data.linz.govt.nz/" target="_blank" rel="noopener">LINZ Data Service</a><br>
-    licensed for reuse under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International Licence (CC BY 4.0)</a>.
+    licensed for reuse under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.
 </div>
 '''
 f_map.get_root().html.add_child(Element(attribution_html))
@@ -169,5 +169,5 @@ f_map.get_root().html.add_child(Element(legend_html))
 
 
 
-f_map.save('index.html')
+f_map.save('wardmap.html')
 
